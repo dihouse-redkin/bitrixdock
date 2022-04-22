@@ -27,7 +27,6 @@ services:
         restart: always
     db:
         build: ./${DB_SERVER_TYPE}
-        platform: linux/amd64
         volumes_from:
             - source
         ports:
@@ -70,7 +69,7 @@ services:
             - db:/var/lib/mysql
             - cache:/var/lib/memcached
             - ./www/html:/var/www/html
-            - ${SITE_PATH}:/var/www/bitrix
+            - ${ROOT_PATH}:/var/www/sites
             - /etc/localtime:/etc/localtime/:ro
         networks:
             - bitrix
