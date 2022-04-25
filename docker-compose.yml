@@ -68,8 +68,8 @@ services:
             - ./logs/memcached:/var/log/memcached
             - db:/var/lib/mysql
             - cache:/var/lib/memcached
-            - ./www/html:/var/www/html
-            - ${ROOT_PATH}:/var/www/sites
+            - ./www/html:/home/www/html
+            - ${ROOT_PATH}:/home/www/sites
             - /etc/localtime:/etc/localtime/:ro
         networks:
             - bitrix
