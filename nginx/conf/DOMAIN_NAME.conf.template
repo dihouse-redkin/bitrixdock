@@ -8,7 +8,7 @@ server {
   server_name DOMAIN_NAME www.DOMAIN_NAME;
     
 	charset utf-8;
-	root /home/www/DOMAIN_NAME;
+	root /home/www/sites/DOMAIN_NAME;
 	index index.php index.html bitrixsetup.php;
 
 	access_log /var/log/nginx/bitrix-access.log;
@@ -31,12 +31,12 @@ server {
 	}
 
 	location / {
-		if (-f /home/www/DOMAIN_NAME/index.php) {
-			 root /home/www/DOMAIN_NAME;
+		if (-f /home/www/sites/DOMAIN_NAME/index.php) {
+			 root /home/www/sites/DOMAIN_NAME;
 			break;
 		}
-		if (-f /home/www/DOMAIN_NAME/bitrixsetup.php) {
-			root /home/www/DOMAIN_NAME;
+		if (-f /home/www/sites/DOMAIN_NAME/bitrixsetup.php) {
+			root /home/www/sites/DOMAIN_NAME;
 			break;
 		}
 		try_files $uri $uri/ @bitrix;

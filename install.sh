@@ -3,7 +3,7 @@ set -e
 
 # This script is meant for quick & easy install via:
 # $ curl -fsSL https://raw.githubusercontent.com/bitrixdock/bitrixdock/master/install.sh -o install.sh | sh install.sh
-echo "Check requirments"
+echo "Check requirements"
 apt-get -qq update
 hash git 2>/dev/null || { apt-get install -y git; }
 hash docker 2>/dev/null || { cd /usr/local/src && wget -qO- https://get.docker.com/ | sh; }
@@ -16,10 +16,10 @@ wget https://www.1c-bitrix.ru/download/scripts/bitrixsetup.php && \
 cd /home/www/ && \
 git clone https://github.com/dihouse-redkin/bitrixdock.git && \
 cd /home/ && chmod -R 775 www/ && chown -R root:www-data www/ && \
-cd /home/www/bitrixdock
+cd /home/www/sites/bitrixdock
 
-# echo "Config"
-# cp -f .env_template .env
+ echo "Config"
+ cp -f .env_template .env
 
 # echo "Run"
 # docker-compose up -d

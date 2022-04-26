@@ -1,9 +1,7 @@
 FROM nginx:1.18
 
-RUN mkdir /etc/nginx/sites-available/
-COPY conf/sites/*.conf /etc/nginx/sites-available/
-RUN mkdir /etc/nginx/sites-enabled/
-RUN ln -s /etc/nginx/sites-available/*.conf /etc/nginx/sites-enabled/
+COPY conf/sites/ /etc/nginx/sites-available
+RUN mkdir /etc/nginx/sites-enabled/ && ln -s /etc/nginx/sites-available/*.conf /etc/nginx/sites-enabled/
 
 COPY conf/nginx.conf /etc/nginx/
 COPY conf/default.conf /etc/nginx/conf.d/
