@@ -16,7 +16,7 @@ wget https://www.1c-bitrix.ru/download/scripts/bitrixsetup.php && \
 cd /home/www/ && \
 git clone https://github.com/dihouse-redkin/bitrixdock.git && \
 cd /home/ && chmod -R 775 www/ && chown -R root:www-data www/ && \
-cd /home/www/sites/bitrixdock
+cd /home/www/bitrixdock
 
  echo "Config"
  cp -f .env_template .env
