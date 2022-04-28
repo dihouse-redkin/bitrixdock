@@ -25,6 +25,6 @@ COPY ./php.ini /etc/php/7.4/cli/conf.d/90-php.ini
 
 RUN usermod -u 1000 www-data
 
-WORKDIR "/home/www/sites"
+WORKDIR "/var/www/sites"
 
 EXPOSE 9000

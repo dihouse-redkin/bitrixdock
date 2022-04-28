@@ -47,7 +47,7 @@ curl -fsSL https://raw.githubusercontent.com/dihouse-redkin/bitrixdock/master/in
 
 #### Для правильной работы необходимо иницилизировать первый сайт
 ```bash
-# в папке home/www/bitrixdock/ выполнить команду
+# в папке var/www/bitrixdock/ выполнить команду
 > ./init_main_site.sh
 
 # будет запрошено имя домена основного сайта
@@ -60,7 +60,7 @@ curl -fsSL https://raw.githubusercontent.com/dihouse-redkin/bitrixdock/master/in
 #### Затем необходимо собрать Docker, чтобы правильно встали конфиги NGINX
 
 ```bash
-# там же в папке в папке home/www/bitrixdock/
+# там же в папке в папке var/www/bitrixdock/
 # команда говорит "Собери все образы докера по-братски"
 > docker-compose build
 
@@ -70,7 +70,7 @@ curl -fsSL https://raw.githubusercontent.com/dihouse-redkin/bitrixdock/master/in
 Если не будет ошибок, то можно будет поднять докер
 
 ```bash
-# там же в папке в папке home/www/bitrixdock/
+# там же в папке в папке var/www/bitrixdock/
 # команда говорит "Запусти все образы докера в режиме демона (-d)"
 > docker-compose up -d
 
@@ -85,7 +85,7 @@ curl -fsSL https://raw.githubusercontent.com/dihouse-redkin/bitrixdock/master/in
 
 ### Всё! Можно работать!
 
-В папке /home/sites/**domain-name** уже лежит установочный файл Битрикса. Его можно удалить и использовать любое PHP приложение. 
+В папке var/www/sites/**domain-name** уже лежит установочный файл Битрикса. Его можно удалить и использовать любое PHP приложение. 
 
 Этого хватит на создание одного тестового сайта. 
 Чтобы создать новый тестовй сайт, необходимо выполнить следующие шаги. 
@@ -98,7 +98,7 @@ curl -fsSL https://raw.githubusercontent.com/dihouse-redkin/bitrixdock/master/in
 #### Создать новый сайт
 
 ```bash 
-# там же в папке в папке home/www/bitrixdock/
+# там же в папке в папке var/www/bitrixdock/
 # команда говорит "Запусти все образы докера в режиме демона (-d)"
 > ./create_site.sh
 
@@ -142,7 +142,7 @@ curl -fsSL https://raw.githubusercontent.com/dihouse-redkin/bitrixdock/master/in
 При создании нового тестового сайта имя базы данных должно совпадать с доменом сайта, чтобы можно было легко их удалять и не путаться!
 
 ## Примечание
-- По умолчанию стоит папка ```/home/www/имя главного домена/```
+- По умолчанию стоит папка ```/var/www/имя главного домена/```
 - В настройках подключения требуется указывать имя сервиса, например для подключения к базе нужно указывать "db", а не "localhost". Пример [конфига](configs/.settings.php) с подключением к mysql и memcached.
 - Для загрузки резервной копии в контейнер используйте команду: ```cat /var/www/bitrix/backup.sql | docker exec -i mysql /usr/bin/mysql -u root -p123 bitrix```
 - При использовании php74 в production удалите строку с `php7.4-xdebug` из файла `php74/Dockerfile`, сам факт его установки снижает производительность Битрикса и он должен использоваться только для разработки
