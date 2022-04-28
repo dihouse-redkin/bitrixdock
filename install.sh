@@ -15,7 +15,7 @@ cd /var/www/sites/bitrix && \
 wget https://www.1c-bitrix.ru/download/scripts/bitrixsetup.php && \
 cd /var/www/ && \
 git clone https://github.com/dihouse-redkin/bitrixdock.git && \
-cd /home/ && chmod -R 775 www/ && chown -R root:www-data www/ && \
+cd /var/ && chmod -R 775 www/ && chown -R root:www-data www/ && \
 cd /var/www/bitrixdock
 
  echo "Config"
