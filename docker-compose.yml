@@ -59,6 +59,20 @@ services:
             UPLOAD: 1024M # upload_max_filesize, post_max_size
         networks:
             - bitrix
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        environment:
+            - PMA_ARBITRARY=1
+        restart: always
+        ports:
+            - 8081:80
+        depends_on:
+            - db
+        environment:
+            PMA_HOST: db
+        networks:
+            - bitrix
     source:
         image: alpine:latest
         volumes:
