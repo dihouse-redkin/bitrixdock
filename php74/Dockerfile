@@ -2,6 +2,13 @@ FROM phpdockerio/php:7.4-fpm
 
 RUN apt-get update \
     && apt-get -y --no-install-recommends install \
+	build-essential \
+	python3 \
+	curl \
+	wget \
+	zip \
+	unzip \
+	git \
     php7.4-memcached \
     php7.4-memcache \
     php7.4-mbstring \
@@ -20,8 +27,21 @@ RUN apt-get update \
 
 # DO NOT install php7.4-xdebug package for site running in production! It will slow it down significantly.
 
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
 COPY ./php.ini /etc/php/7.4/fpm/conf.d/90-php.ini
 COPY ./php.ini /etc/php/7.4/cli/conf.d/90-php.ini
+
+RUN git clone --depth 1 --branch v1.6.2 https://github.com/edenhill/librdkafka.git \
+    && ( \
+        cd librdkafka \
+        && ./configure \
+        && make \
+        && make install \
+    ) \
+    && pecl install rdkafka \
+	&& echo "extension=rdkafka.so" > /etc/php/7.4/cli/conf.d/rdkafka.ini
 
 RUN usermod -u 1000 www-data
 

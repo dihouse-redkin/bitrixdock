@@ -40,6 +40,20 @@ services:
         networks:
             - bitrix
         restart: always
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        environment:
+         - PMA_ARBITRARY=1
+        restart: always
+        ports:
+            - 8081:80
+        depends_on:
+            - db
+        environment:
+          PMA_HOST: db
+        networks:
+         - bitrix
     memcached:
         image: memcached:1.6.12-alpine
         volumes_from:
@@ -59,20 +73,39 @@ services:
             UPLOAD: 1024M # upload_max_filesize, post_max_size
         networks:
             - bitrix
-    phpmyadmin:
-        image: phpmyadmin/phpmyadmin
-        container_name: phpmyadmin
-        environment:
-            - PMA_ARBITRARY=1
-        restart: always
+    zookeeper:
+        image: wurstmeister/zookeeper
         ports:
-            - 8081:80
-        depends_on:
-            - db
-        environment:
-            PMA_HOST: db
+          - 2181:2181
         networks:
-            - bitrix
+          - bitrix
+    kafka:
+        image: wurstmeister/kafka
+        ports:
+          - 9092:9092
+        environment:
+          KAFKA_ADVERTISED_HOST_NAME: kafka
+          KAFKA_CREATE_TOPICS: "test:1:1"
+          KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+        networks:
+          - bitrix
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock      
+    kafka-ui:
+        image: provectuslabs/kafka-ui
+        container_name: kafka-ui
+        ports:
+          - "7989:8080"
+        restart: always
+        environment:
+          - KAFKA_CLUSTERS_0_NAME=local
+          - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+          - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
+          - KAFKA_CLUSTERS_0_READONLY=false     
+        volumes:  
+            - /var/run/docker.sock:/var/run/docker.sock
+        networks:
+          - bitrix
     source:
         image: alpine:latest
         volumes:
