@@ -43,7 +43,7 @@ RUN git clone --depth 1 --branch v1.6.2 https://github.com/edenhill/librdkafka.g
     && pecl install rdkafka \
 	&& echo "extension=rdkafka.so" > /etc/php/7.4/cli/conf.d/rdkafka.ini
 
-RUN usermod -u 1000 www-data
+RUN usermod -u 1004 www-data
 
 WORKDIR "/var/www/sites"
 
